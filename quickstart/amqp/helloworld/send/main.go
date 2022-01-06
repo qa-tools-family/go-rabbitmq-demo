@@ -33,19 +33,17 @@ func main()  {
 	}
 
 	body := "Hello World!"
-	for true {
-		err = channel.Publish(
-			"",         // exchange
-			queue.Name, // routing key
-			false,      // mandatory
-			false,      // immediate
-			amqp.Publishing{
-				ContentType: "text/plain",
-				Body:        []byte(body),
-			})
-		if err != nil {
-			logger.Fatal("Failed to publish a message: ", err)
-		}
+	err = channel.Publish(
+		"",         // exchange
+		queue.Name, // routing key
+		false,      // mandatory
+		false,      // immediate
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body:        []byte(body),
+		})
+	if err != nil {
+		logger.Fatal("Failed to publish a message: ", err)
 	}
 
 }
