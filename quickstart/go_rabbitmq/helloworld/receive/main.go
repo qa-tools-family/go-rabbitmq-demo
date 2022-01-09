@@ -3,7 +3,7 @@ package main
 import (
 	amqp "github.com/rabbitmq/amqp091-go"
 	logger "github.com/sirupsen/logrus"
-	"github.com/wagslane/go-rabbitmq"
+	"github.com/qa-tools-family/go-rabbitmq"
 )
 
 func main()  {

@@ -1,5 +1,3 @@
-
-
 package main
 
 import (
@@ -10,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/qa-tools-family/go-rabbitmq"
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/wagslane/go-rabbitmq"
 )
 
 var consumerName = "example"
@@ -67,7 +65,7 @@ func main() {
 
 	// wait for server to acknowledge the cancel
 	consumer.StopConsuming(consumerName, false)
-	// todo: consumer 需要支持一个 Wait Task Finished 方法
-	time.Sleep(time.Second * 20)
+	// consumer 需要支持一个 Wait Task Finished 方法
+	consumer.WaitMessageDown()
 	consumer.Disconnect()
 }

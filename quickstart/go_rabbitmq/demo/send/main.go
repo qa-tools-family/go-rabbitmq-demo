@@ -8,8 +8,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/qa-tools-family/go-rabbitmq"
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/wagslane/go-rabbitmq"
 )
 
 func main() {
@@ -56,16 +56,18 @@ func main() {
 	for {
 		select {
 		case <-ticker.C:
-			err = publisher.Publish(
-				[]byte("hello, world"),
-				[]string{"routing_key"},
-				rabbitmq.WithPublishOptionsContentType("application/json"),
-				rabbitmq.WithPublishOptionsMandatory,
-				rabbitmq.WithPublishOptionsPersistentDelivery,
-				rabbitmq.WithPublishOptionsExchange("events"),
-			)
-			if err != nil {
-				log.Println(err)
+			for i:=1; i<5; i++ {
+				err = publisher.Publish(
+					[]byte("hello, world"),
+					[]string{"routing_key"},
+					rabbitmq.WithPublishOptionsContentType("application/json"),
+					rabbitmq.WithPublishOptionsMandatory,
+					rabbitmq.WithPublishOptionsPersistentDelivery,
+					rabbitmq.WithPublishOptionsExchange("events"),
+				)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		case <-done:
 			fmt.Println("stopping publisher")
